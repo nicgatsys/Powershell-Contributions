@@ -1,9 +1,10 @@
-I've been looking for scripts for this for some time and found a few that did not work in practice but looked functionally correct
-I've appended the script I got working in case it helps any one else reading - hope you got yours working OP and hope this helps if you haven't already.
 #	FVE - Set GP Settings for Bitlocker key backup via Powershell
+#
 # The following settings are what get affected by the Group Policy that enables Bitlocker key backup to A/AD
-#The last segment of this script tries to run gpupdate before backing up the bitlocker key to local AD - both of which it can only do if connected to VPN or local domain network
-#in my environment the settings below are applied to everyone via GP but there are many users who work remotely so I applied this to make this backup functional
+# The last segment of this script tries to run gpupdate before backing up the bitlocker key to local AD - both of which it can only do if connected to VPN or local domain network
+#
+# in my environment the settings below are applied to everyone via GP but there are many users who work remotely so I applied this to make this backup functional
+#
 New-Item "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -force -ea SilentlyContinue
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\FVE' -Name 'ActiveDirectoryBackup' -Value '1' -PropertyType dword -Force -ea SilentlyContinue;
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\FVE' -Name 'RequireActiveDirectoryBackup' -Value '1' -PropertyType dword -Force -ea SilentlyContinue;
